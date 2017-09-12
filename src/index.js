@@ -4,10 +4,10 @@ import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import logger from 'redux-logger'
 import thunk from 'redux-thunk'
-import reducer from './reducers'
+import todoApp from './reducers'
 import App from './components/App'
 
-const store = createStore(reducer, applyMiddleware(logger, thunk))
+const store = createStore(todoApp, applyMiddleware(logger, thunk))
 
 render(
   <Provider store={store}>

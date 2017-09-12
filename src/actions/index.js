@@ -1,8 +1,5 @@
 import axios from 'axios'
 
-// const id = Date.now();
-let nextTodoId = 0
-
 export function fetchTodos() {
   return function(dispatch) {
     axios.get('http://localhost:3001/todos')
@@ -22,12 +19,13 @@ export function deleteTodo(id) {
 
 export function addTodo(text) {
   return function(dispatch) {
-    dispatch({type: 'ADD_TODO', id: nextTodoId++, text})
+    const id = Date.now();
+    dispatch({type: 'ADD_TODO', id: id, text})
     axios({
       method: 'POST',
       url: 'http://localhost:3001/todos/',
       data: {
-        id: nextTodoId,
+        id: id,
         text: text
       }
     })

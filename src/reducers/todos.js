@@ -12,8 +12,10 @@ const todos = (state = [], action) => {
       return state.filter(todo => todo.id !== action.id)
 
     case 'FETCHED_TODOS':
+      console.log(typeof(action.todos))
+      console.log(action.todos)
       return state.concat(action.todos)
-      
+
     default:
       return state
   }

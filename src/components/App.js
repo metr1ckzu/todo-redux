@@ -1,15 +1,15 @@
 import React from 'react'
-import AddTodo from '../containers/AddTodo'
+import AddTodoContainer from '../containers/AddTodo'
 import VisibleTodoList from '../containers/VisibleTodoList'
-import GetTodosButton from '../containers/GetTodosButton'
+import GetTodos from '../containers/GetTodos'
 import Title from './Title'
 
 const App = () => (
   <div>
     <Title />
     <VisibleTodoList />
-    <AddTodo />
-    <GetTodosButton />
+    <AddTodoContainer />
+    <GetTodos />
   </div>
 )
 
