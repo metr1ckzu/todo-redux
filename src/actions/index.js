@@ -4,8 +4,8 @@ export function fetchTodos() {
   return function(dispatch) {
     axios.get('http://localhost:3001/todos')
       .then((response) => {
-        let todos = response.data
-        dispatch({type: 'FETCHED_TODOS', todos})
+        const fetchedData = response.data
+        dispatch({type: 'FETCHED_TODOS', fetchedData})
       })
   }
 }

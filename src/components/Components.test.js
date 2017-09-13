@@ -9,6 +9,7 @@ import Todo from './Todo'
 import TodoList from './TodoList'
 import App from './App'
 import GetTodosButton from './GetTodosButton'
+import AddTodo from './AddTodo'
 
 
 describe('Components test', () => {
@@ -81,4 +82,32 @@ describe('Components test', () => {
     })
   })
 
+  describe('AddTodo', () => {
+    function setup() {
+      const props = {
+        addTodo : jest.fn(),
+      }
+      const input = {value: 'kek'}
+      const wrapper = mount(<AddTodo {...props}/>)
+
+      return {
+        props,
+        wrapper
+
+      }
+    }
+    it('should render addtodo', () => {
+      const { props, wrapper } = setup()
+      console.log(wrapper.debug())
+      wrapper.find('form').simulate('submit')
+      expect(props.addTodo.mock.calls.length).toBe(0)
+    })
+    it('Should add todo', () => {
+      const { props, wrapper } = setup()
+      const input = wrapper.find('input')
+      input.value = 'kek'
+      wrapper.find('form').simulate('submit')
+      expect(props.addTodo.mock.calls.length).toBe(1)
+    })
+  })
 })

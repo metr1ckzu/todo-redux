@@ -38,11 +38,11 @@ describe('todos reducer', () => {
   })
 
   it('should fetch todos', () => {
-    let todos = {text: 'kek'}
+    let fetchedData = {text: 'kek'}
     expect(
       todos([], {
         type: 'FETCHED_TODOS',
-        todos
+        fetchedData
       })
     ).toEqual([{text: 'kek'}])
   })
