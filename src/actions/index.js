@@ -12,15 +12,14 @@ export function fetchTodos() {
 
 export function deleteTodo(id) {
   return function(dispatch) {
-    dispatch({type: 'DELETE_TODO', id})
     axios.delete('http://localhost:3001/todos/'+id)
+      .then(dispatch({type: 'DELETE_TODO', id}))
   }
 }
 
 export function addTodo(text) {
   return function(dispatch) {
     const id = Date.now();
-    dispatch({type: 'ADD_TODO', id: id, text})
     axios({
       method: 'POST',
       url: 'http://localhost:3001/todos/',
@@ -28,6 +27,6 @@ export function addTodo(text) {
         id: id,
         text: text
       }
-    })
+    }).then(dispatch({type: 'ADD_TODO', id: id, text}))
   }
 }
