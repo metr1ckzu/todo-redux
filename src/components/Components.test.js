@@ -104,10 +104,9 @@ describe('Components test', () => {
     })
     it('Should add todo', () => {
       const { props, wrapper } = setup()
-      const input = wrapper.find('input')
-      input.value = 'kek'
+      wrapper.find('input').node.value = 'abc'
       wrapper.find('form').simulate('submit')
-      expect(props.addTodo.mock.calls.length).toBe(1)
+      expect(props.addTodo.mock.call.length).toBe(1)
     })
   })
 })
