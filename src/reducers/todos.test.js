@@ -1,4 +1,11 @@
 import todos from './todos'
+import { createStore } from 'redux'
+import todoApp from './index'
+let testStore = createStore(todoApp)
+
+describe('combineReducers test', () => {
+  expect(testStore.getState().todos).toEqual(todos(undefined, {}))
+})
 
 describe('todos reducer', () => {
 
@@ -47,12 +54,4 @@ describe('todos reducer', () => {
     ).toEqual([{text: 'kek'}])
   })
 
-})
-
-import { createStore } from 'redux'
-import todoApp from './index'
-let testStore = createStore(todoApp)
-
-describe('combineReducers test', () => {
-  expect(testStore.getState().todos).toEqual(todos(undefined, {}))
 })
