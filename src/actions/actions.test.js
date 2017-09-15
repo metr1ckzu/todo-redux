@@ -2,9 +2,6 @@ import thunk from 'redux-thunk'
 import moxios from 'moxios'
 import configureMockStore from 'redux-mock-store'
 import { fetchTodos, deleteTodo, addTodo } from './index'
-import sinon from 'sinon'
-import axios from 'axios'
-import MockAdapter from 'axios-mock-adapter'
 
 const middlewares = [thunk]
 const mockStore = configureMockStore(middlewares)
@@ -17,62 +14,59 @@ describe('async action creators', () => {
     moxios.uninstall()
   })
 
-  it('fetchTodos async test', () => {
-    moxios.withMock(() => {
-      let onFulfilled = sinon.spy()
-      const store = mockStore({todos: [] })
-      return store.dispatch(fetchTodos()).then(onFulfilled)
+  it('fetchTodos async test', function (done) {
+      const fetchedData = [{id: 1, text: 'kek'}]
+      const expectedActions = [{type: 'FETCHED_TODOS', fetchedData}]
+      const store = mockStore({todos: []})
 
-      moxios.wait(() => {
+      store.dispatch(fetchTodos())
+
+      moxios.wait(function () {
         let request = moxios.requests.mostRecent()
         request.respondWith({
           status: 200,
-          response: {
-            id: 1, text: 'kek'
-          }
-        }).then(() => {
-          equal(onFulfilled.called, true)
+          response: fetchedData
+        }).then(function () {
+          expect(store.getActions()).toEqual(expectedActions)
           done()
         })
       })
     })
-  })
 
-  it('fetchTodos moxios stub', () => {
-    var payload = [{id: 1, text: 'kek'}]
-    moxios.stubRequest('http://localhost:3001/todos', {
-      status: 200,
-      response: payload
-    })
-    const expectedActions = [
-      {type: 'FETCHED_TODOS', payload}
-    ]
-
+  it('deleteTodo async test', (done) => {
+    const expectedActions = [{type: 'DELETE_TODO', id: 1}]
     const store = mockStore({todos: []})
 
-    return store.dispatch(fetchTodos()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
+    store.dispatch(deleteTodo(1))
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200
+      }).then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+        done()
+      })
     })
   })
 
-})
 
-describe('mockadapter', () => {
-
-  it('fetchTodos mockadapter', () => {
-    var mockkek = new MockAdapter(axios)
-    var payload = {id: 1, text: 'kek'}
-    mockkek.onGet('http://localhost:3001/todos').reply(200, payload)
-
-    const expectedActions = [
-      {type: 'FETCHED_TODOS', payload}
-    ]
-
+  it('addTodo async test', (done) => {
+    const id = Date.now()
+    const text = 'kek'
+    const expectedActions = [{type: 'ADD_TODO', id: id, text}]
     const store = mockStore({todos: []})
 
-    return store.dispatch(fetchTodos()).then(() => {
-      expect(store.getActions()).toEqual(expectedActions)
+    store.dispatch(addTodo(text))
+
+    moxios.wait(() => {
+      let request = moxios.requests.mostRecent()
+      request.respondWith({
+        status: 200
+      }).then(() => {
+        expect(store.getActions()).toEqual(expectedActions)
+        done()
+      })
     })
   })
-
 })
