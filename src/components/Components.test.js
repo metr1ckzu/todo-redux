@@ -87,9 +87,7 @@ describe('Components test', () => {
       const props = {
         addTodo : jest.fn(),
       }
-      const input = {value: 'kek'}
       const wrapper = mount(<AddTodo {...props}/>)
-
       return {
         props,
         wrapper
@@ -98,7 +96,6 @@ describe('Components test', () => {
     }
     it('should render addtodo', () => {
       const { props, wrapper } = setup()
-      console.log(wrapper.debug())
       wrapper.find('form').simulate('submit')
       expect(props.addTodo.mock.calls.length).toBe(0)
     })
@@ -106,7 +103,7 @@ describe('Components test', () => {
       const { props, wrapper } = setup()
       wrapper.find('input').node.value = 'abc'
       wrapper.find('form').simulate('submit')
-      expect(props.addTodo.mock.call.length).toBe(1)
+      expect(props.addTodo.mock.calls.length).toBe(1)
     })
   })
 })
