@@ -5,9 +5,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 In the project directory, you can run:
 
-Before start install [https://github.com/typicode/json-server](json-server)
+Before start install [json-server](https://github.com/typicode/json-server)
 Then start json-server
-`json-server --watch db.json --port 3001`
+```
+json-server --watch db.json --port 3001
+```
+
 ### `npm start`
 
 Runs the app in the development mode.<br>
