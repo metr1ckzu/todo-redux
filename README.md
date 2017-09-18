@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 In the project directory, you can run:
 
 Before start install [json-server](https://github.com/typicode/json-server)
-Then start json-server
+Then start json-server.<br>
 ```
 json-server --watch db.json --port 3001
 ```
